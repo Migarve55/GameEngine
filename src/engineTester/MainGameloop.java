@@ -3,6 +3,7 @@ package engineTester;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 
+import entities.Camera;
 import entities.Entity;
 import models.RawModel;
 import models.TextureModel;
@@ -49,14 +50,18 @@ public class MainGameloop {
 		//Entity: model + texture + position
 		Entity entity = new Entity(staticModel, new Vector3f(0,0,-1),0,0,0,1);
 		
+		Camera camera = new Camera();
+		
 		// Main loop
 		while(!Display.isCloseRequested()) {
 			//Game logic
-			entity.increasePosition(0f, 0f, -0.4f); //Moves the entity
-			entity.increaseRotation(0, 1, 0); //Rotates it
+			entity.increasePosition(0f, 0f, 0f); //Moves the entity
+			entity.increaseRotation(0, 0, 0); //Rotates it
+			camera.move(); //Move the camera
 			//Render
 			renderer.prepare(); //Change the background to green
 			shader.start();
+			shader.loadViewMatrix(camera);  //Updates the camera
 			renderer.render(entity,shader);
 			shader.stop();
 			DisplayManager.updateDisplay();
