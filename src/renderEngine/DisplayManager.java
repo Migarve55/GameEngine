@@ -9,16 +9,18 @@ import org.lwjgl.opengl.PixelFormat;
 
 public class DisplayManager {
 	
-	private static final int WIDTH = 1280;
-	private static final int HEIGHT = 720;
-	private static final int FPS_CAP = 60;
+	private static final int WIDTH = 1280; //Width of the screen
+	private static final int HEIGHT = 720; //Height of the screen
+	private static final int FPS_CAP = 60; //Frames per second
 	
 	public static void createDisplay() {
 		
+		//Attributes for the display
 		ContextAttribs attribs = new ContextAttribs(3,2)
 		.withForwardCompatible(true)
 		.withProfileCore(true);
 		
+		//Tries to display the screen
 		try {
 			Display.setDisplayMode(new DisplayMode(WIDTH,HEIGHT));
 			Display.create(new PixelFormat(), attribs);
@@ -26,7 +28,7 @@ public class DisplayManager {
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-		
+		//Sets the height and width
 		GL11.glViewport(0, 0, WIDTH, HEIGHT);
 		
 	}

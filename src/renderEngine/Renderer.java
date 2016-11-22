@@ -29,8 +29,9 @@ public class Renderer {
 	}
 	
 	public void prepare() {
+		//GL11.glEnable(GL11.GL_DEPTH_TEST); //This is used to dont draw triangles in top of each other
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
-		GL11.glClearColor(0, 1 , 0, 1);
+		GL11.glClearColor(0, 1 , 0, 1); //Background (Green)
 	}
 	
 	public void renderShape(RawModel model) {

@@ -41,6 +41,7 @@ public class MainGameloop {
 				0,1,
 				1,0,
 				1,1};
+		System.out.println("Loading models");
 		// Model 
 		RawModel model = loader.loadToVAO(vertices,textCoords,indices);
 		// Texture
@@ -49,8 +50,9 @@ public class MainGameloop {
 		TextureModel staticModel = new TextureModel(model,texture);
 		//Entity: model + texture + position
 		Entity entity = new Entity(staticModel, new Vector3f(0,0,-1),0,0,0,1);
-		
+		System.out.println("Models loaded");
 		Camera camera = new Camera();
+		System.out.println("Game started");
 		
 		// Main loop
 		while(!Display.isCloseRequested()) {
@@ -65,9 +67,9 @@ public class MainGameloop {
 			renderer.render(entity,shader);
 			shader.stop();
 			DisplayManager.updateDisplay();
-			
 		}
 		
+		System.out.println("Game ended");
 		shader.cleanUp();//Clean up the shaders programs
 		loader.cleanUp(); //Clean up all the vaos and vbos
 		DisplayManager.closeDisplay(); //Close the display
