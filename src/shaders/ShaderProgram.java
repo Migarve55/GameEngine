@@ -60,6 +60,8 @@ public abstract class ShaderProgram {
         GL20.glBindAttribLocation(programID, attribute, variableName);
     }
     
+    //Loading methods to uniform values in the shaders code
+    
     protected void loadFloat(int location, float value) {
     	GL20.glUniform1f(location, value);
     }
@@ -80,8 +82,14 @@ public abstract class ShaderProgram {
     	GL20.glUniformMatrix4(location, false, matrixBuffer);
     }
     
-    //Load program
+    //Load shader code method
      
+    /**
+     * This method loads a .txt file to a shader so OpenGL can use it     
+     * @param file The name of the file, with the full directory path
+     * @param type Type of file (Vertex shader or Fragment shader)
+     * @return The ID of the shader
+     */
     private static int loadShader(String file, int type){
         StringBuilder shaderSource = new StringBuilder();
         try{
