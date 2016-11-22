@@ -19,8 +19,8 @@ public class MainGameloop {
 		DisplayManager.createDisplay();
 		
 		Loader loader = new Loader();
-		Renderer renderer = new Renderer();
 		StaticShader shader = new StaticShader();
+		Renderer renderer = new Renderer(shader);
 		
 		//Rectangle		
 		//RawModel rectangle = BasicShapes.rectangle(loader,0.4f,0.3f,0.5f,0.5f);
@@ -47,12 +47,12 @@ public class MainGameloop {
 		// Model + texture
 		TextureModel staticModel = new TextureModel(model,texture);
 		//Entity: model + texture + position
-		Entity entity = new Entity(staticModel, new Vector3f(0,0,0),0,0,0,1);
+		Entity entity = new Entity(staticModel, new Vector3f(0,0,-1),0,0,0,1);
 		
 		// Main loop
 		while(!Display.isCloseRequested()) {
 			//Game logic
-			entity.increasePosition(0.01f, 0f, 0f); //Moves the entity
+			entity.increasePosition(0f, 0f, -0.4f); //Moves the entity
 			entity.increaseRotation(0, 1, 0); //Rotates it
 			//Render
 			renderer.prepare(); //Change the background to green
