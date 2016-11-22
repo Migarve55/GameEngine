@@ -48,6 +48,7 @@ public class Renderer {
 		GL30.glBindVertexArray(rawModel.getVaoID()); //Start with the VAO
 		GL20.glEnableVertexAttribArray(0); //Vertices slot
 		GL20.glEnableVertexAttribArray(1); //Texture slot
+		GL20.glEnableVertexAttribArray(2); //Normal slot
 		//Transformation
 		Matrix4f transformationMatrix = Maths.createTransformationMatrix(entity.getPosition(), entity.getRotX(), entity.getRotY(), entity.getRotZ(), entity.getScale());
 		shader.loadTransformationMatrix(transformationMatrix);
@@ -56,6 +57,7 @@ public class Renderer {
 		GL11.glDrawElements(GL11.GL_TRIANGLES, rawModel.getVertexCount(), GL11.GL_UNSIGNED_INT, 0); //Draws the vertices
 		GL20.glDisableVertexAttribArray(0); //Vertices slot
 		GL20.glDisableVertexAttribArray(1); //texture slot
+		GL20.glDisableVertexAttribArray(2); //Normal slot
 		GL30.glBindVertexArray(0); //Finish using the VAO
 	}
 	
