@@ -23,29 +23,14 @@ public class Loader {
 	private ArrayList<Integer> vaos = new ArrayList<Integer>();
 	private ArrayList<Integer> vbos = new ArrayList<Integer>();
 	private ArrayList<Integer> textures = new ArrayList<Integer>();
-
-	/**
-	 * Creates a new model
-	 * @param positions The vertices of all the triangles of the model
-	 * @param the indices of the vertices
-	 * @return A new model to render
-	 */
-	public RawModel loadToVAO(float[] positions, int[] indices) {
-		int vaoID = createVAO();
-		bindIndicesBuffer(indices);
-		storeDataInAttributeList(0,3,positions);
-		//storeDataInAttributeList(1,indices);
-		unbindVAO();
-		return new RawModel(vaoID, indices.length);
-	}
 	
-	public RawModel loadToVAOwithImage(float[] positions, int[] indices, float[]textureCoords) {
-		int vaoID = createVAO();
-		bindIndicesBuffer(indices);
-		storeDataInAttributeList(0,3,positions);
-		storeDataInAttributeList(1,2,textureCoords);
-		unbindVAO();
-		return new RawModel(vaoID, indices.length);
+	public RawModel loadToVAO(float[] positions,float[] textureCoords,int[] indices) {
+        int vaoID = createVAO();
+        bindIndicesBuffer(indices);
+        storeDataInAttributeList(0,3,positions);
+        storeDataInAttributeList(1,2,textureCoords);
+        unbindVAO();
+        return new RawModel(vaoID,indices.length);
 	}
 	
 	public int loadTexture(String fileName) {

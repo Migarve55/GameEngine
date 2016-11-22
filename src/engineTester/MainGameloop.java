@@ -11,7 +11,6 @@ import renderEngine.Loader;
 import renderEngine.Renderer;
 import shaders.StaticShader;
 import textures.ModelTexture;
-//import renderEngine.BasicShapes;
 
 public class MainGameloop {
 
@@ -41,23 +40,23 @@ public class MainGameloop {
 				0,1,
 				1,0,
 				1,1};
-		
-		RawModel model = loader.loadToVAOwithImage(vertices,indices,textCoords);
-		
+		// Model 
+		RawModel model = loader.loadToVAO(vertices,textCoords,indices);
+		// Texture
 		ModelTexture texture = new ModelTexture(loader.loadTexture("image"));
-		
+		// Model + texture
 		TextureModel staticModel = new TextureModel(model,texture);
-		
-		Entity entity = new Entity(staticModel, new Vector3f(-1,0,0),0,0,0,1);
+		//Entity: model + texture + position
+		Entity entity = new Entity(staticModel, new Vector3f(0,0,0),0,0,0,1);
 		
 		// Main loop
 		while(!Display.isCloseRequested()) {
 			//Game logic
-			entity.increasePosition(-0.001f, 0f, 0f);
+			entity.increasePosition(0.01f, 0f, 0f); //Moves the entity
+			entity.increaseRotation(0, 1, 0); //Rotates it
 			//Render
 			renderer.prepare(); //Change the background to green
 			shader.start();
-			//renderer.renderShape(rectangle);
 			renderer.render(entity,shader);
 			shader.stop();
 			DisplayManager.updateDisplay();
