@@ -18,7 +18,8 @@ public class Terrain {
 		this.x = x * SIZE;
 		this.z = z * SIZE;
 		this.texture = texture;
-	}
+		this.model = generateTerrain(loader);	
+		}
 	
 	//Terrain generation
 	private RawModel generateTerrain(Loader loader){

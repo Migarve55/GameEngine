@@ -26,7 +26,7 @@ public class MainGameloop {
 		// Model 
 		RawModel model = OBJLoader.loadObjModel("dragon", loader);
 		// Texture
-		ModelTexture texture = new ModelTexture(loader.loadTexture("image"));
+		ModelTexture texture = new ModelTexture(loader.loadTexture("yellow"));
 		// Model + texture
 		TextureModel staticModel = new TextureModel(model,texture);
 		staticModel.getTexture().setShineDamper(25);
@@ -37,13 +37,13 @@ public class MainGameloop {
 		
 		//Terrain
 		
-		Terrain terrain1 = new Terrain(1,-1,loader,new ModelTexture(loader.loadTexture("image")));
-		Terrain terrain2 = new Terrain(0,-1,loader,new ModelTexture(loader.loadTexture("image")));
+		Terrain terrain1 = new Terrain(1,-1,loader,new ModelTexture(loader.loadTexture("grass")));
+		Terrain terrain2 = new Terrain(0,-1,loader,new ModelTexture(loader.loadTexture("grass")));
 		System.out.println("Terrain created");
 		
 		//Camera and light
 		Camera camera = new Camera();
-		Light light = new Light(new Vector3f(0,5,0), new Vector3f(1,1,1));
+		Light Sun = new Light(new Vector3f(0,5,0), new Vector3f(1,1,1));
 		
 		System.out.println("Game started");
 		
@@ -60,7 +60,7 @@ public class MainGameloop {
 			renderer.processTerrain(terrain1);
 			renderer.processTerrain(terrain2);
 			//Render
-			renderer.render(light, camera);
+			renderer.render(Sun, camera);
 			DisplayManager.updateDisplay();
 		}
 		
