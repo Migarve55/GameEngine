@@ -1,5 +1,7 @@
 package terrain;
 
+import java.util.Random;
+
 import models.RawModel;
 import renderEngine.Loader;
 import textures.ModelTexture;
@@ -32,7 +34,7 @@ public class Terrain {
         for(int i=0;i<VERTEX_COUNT;i++){
             for(int j=0;j<VERTEX_COUNT;j++){
                 vertices[vertexPointer*3] = -(float)j/((float)VERTEX_COUNT - 1) * SIZE;
-                vertices[vertexPointer*3+1] = 0;
+                vertices[vertexPointer*3+1] = terrainVertex(x,z); //Terrain Y
                 vertices[vertexPointer*3+2] = -(float)i/((float)VERTEX_COUNT - 1) * SIZE;
                 normals[vertexPointer*3] = 0;
                 normals[vertexPointer*3+1] = 1;
@@ -62,6 +64,9 @@ public class Terrain {
 	
 	//This method gives a height to the terrain depending on the X and Z
 	private float terrainVertex(float x, float z) {
+		Random gen = new Random();
+		//return gen.nextFloat() * (x/z);
+		//return gen.nextFloat();
 		return 0;
 	}
 

@@ -15,7 +15,10 @@ public class Camera {
     public Camera(Vector3f pos){
     	this.position = pos;
     }
-     
+    
+    /**
+     * Movement of the camera
+     */
     public void move(){
         if(Keyboard.isKeyDown(Keyboard.KEY_W)){
             position.z-=0.2f;
@@ -28,6 +31,19 @@ public class Camera {
         }
         if(Keyboard.isKeyDown(Keyboard.KEY_A)){
             position.x-=0.2f;
+        }
+        if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)){ //UP
+            position.y+=0.2f;
+        }
+        if(Keyboard.isKeyDown(Keyboard.KEY_MINUS)){ //DOWN
+            position.y-=0.2f;
+        }
+        //ROTATE
+        if(Keyboard.isKeyDown(Keyboard.KEY_Q)){ //LEFT
+            yaw-=0.4f;
+        }
+        if(Keyboard.isKeyDown(Keyboard.KEY_E)){ //RIGHT
+        	yaw+=0.4f;
         }
     }
  
