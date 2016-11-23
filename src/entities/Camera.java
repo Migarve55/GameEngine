@@ -11,19 +11,23 @@ public class Camera {
     private float roll;
      
     public Camera(){}
+    
+    public Camera(Vector3f pos){
+    	this.position = pos;
+    }
      
     public void move(){
         if(Keyboard.isKeyDown(Keyboard.KEY_W)){
-            position.z-=0.02f;
+            position.z-=0.2f;
         }
         if(Keyboard.isKeyDown(Keyboard.KEY_S)){
-            position.z+=0.02f;
+            position.z+=0.2f;
         }
         if(Keyboard.isKeyDown(Keyboard.KEY_D)){
-            position.x+=0.02f;
+            position.x+=0.2f;
         }
         if(Keyboard.isKeyDown(Keyboard.KEY_A)){
-            position.x-=0.02f;
+            position.x-=0.2f;
         }
     }
  
