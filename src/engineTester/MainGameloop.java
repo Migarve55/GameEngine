@@ -12,6 +12,7 @@ import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer;
 import renderEngine.OBJLoader;
+import terrain.Terrain;
 import textures.ModelTexture;
 
 public class MainGameloop {
@@ -28,11 +29,17 @@ public class MainGameloop {
 		ModelTexture texture = new ModelTexture(loader.loadTexture("image"));
 		// Model + texture
 		TextureModel staticModel = new TextureModel(model,texture);
-		staticModel.getTexture().setShineDamper(12);
+		staticModel.getTexture().setShineDamper(25);
 		staticModel.getTexture().setReflectivity(1);
 		//Entity: model + texture + position
 		Entity entity = new Entity(staticModel, new Vector3f(0,-5,-20),0,0,0,1);
 		System.out.println("Models loaded");
+		
+		//Terrain
+		
+		Terrain terrain1 = new Terrain(1,-1,loader,new ModelTexture(loader.loadTexture("image")));
+		Terrain terrain2 = new Terrain(0,-1,loader,new ModelTexture(loader.loadTexture("image")));
+		System.out.println("Terrain created");
 		
 		//Camera and light
 		Camera camera = new Camera();
@@ -47,8 +54,12 @@ public class MainGameloop {
 			entity.increasePosition(0f, 0f, 0f); //Moves the entity
 			entity.increaseRotation(0, 0.4f, 0); //Rotates it
 			camera.move(); //Move the camera
-			//Render
+			//Entities
 			renderer.processEntity(entity);
+			//Terrain
+			renderer.processTerrain(terrain1);
+			renderer.processTerrain(terrain2);
+			//Render
 			renderer.render(light, camera);
 			DisplayManager.updateDisplay();
 		}
