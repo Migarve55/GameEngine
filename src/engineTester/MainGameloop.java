@@ -27,11 +27,13 @@ public class MainGameloop {
 		
 		System.out.println("Loading models");
 		// Model 
-		RawModel model = OBJLoader.loadObjModel("dragon", loader);
+		RawModel model = OBJLoader.loadObjModel("stall", loader);
 		// Texture
-		ModelTexture texture = new ModelTexture(loader.loadTexture("image"));
+		ModelTexture texture = new ModelTexture(loader.loadTexture("stallTexture"));
 		// Model + texture
 		TextureModel staticModel = new TextureModel(model,texture);
+		staticModel.getTexture().setShineDamper(17);
+		staticModel.getTexture().setReflectivity(2);
 		//Entity: model + texture + position
 		Entity entity = new Entity(staticModel, new Vector3f(0,-5,-20),0,0,0,1);
 		System.out.println("Models loaded");
