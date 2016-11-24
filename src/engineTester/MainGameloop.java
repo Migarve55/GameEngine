@@ -62,17 +62,18 @@ public class MainGameLoop {
 		ModelTexture tree_texture = new ModelTexture(loader.loadTexture("tree"));
 		TexturedModel tree_static_model = new TexturedModel(tree_model, tree_texture);
 		for (int i = 0;i < number_of_trees;i++) {
-			trees.add(new Entity(tree_static_model,new Vector3f(gen.nextFloat()*100,0,gen.nextFloat()*100),0,0,0,1));
+			trees.add(new Entity(tree_static_model,new Vector3f(40-gen.nextFloat()*80,0,40-gen.nextFloat()*80),0,0,0,1));
 		}
 		
 		Terrain terrain1 = new Terrain(0,0,loader,new ModelTexture(loader.loadTexture("grass")));
 		Terrain terrain2 = new Terrain(1,0,loader,new ModelTexture(loader.loadTexture("grass")));
 		Terrain terrain3 = new Terrain(0,1,loader,new ModelTexture(loader.loadTexture("grass")));
 		Terrain terrain4 = new Terrain(1,1,loader,new ModelTexture(loader.loadTexture("grass")));
+		
 		System.out.println("Terrain created");
 		
 		//Camera and light
-		Camera camera = new Camera();
+		Camera camera = new Camera(new Vector3f(0,0.8f,0));
 		Light Sun = new Light(new Vector3f(0,500,0), new Vector3f(1,1,1));
 		
 		System.out.println("Game started");

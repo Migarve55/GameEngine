@@ -3,7 +3,6 @@ package renderEngine;
 import java.util.List;
 
 import models.RawModel;
-import models.TexturedModel;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;

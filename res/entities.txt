@@ -1,5 +1,8 @@
-e: bunny yellow 1 0 1 0 0 0 0.3
-te: dragon yellow 0 0 5 0 1 0 0.3
-te: tree yellow 3 0 2 0 0 0 0.3
-e: stall stallTexture -7.2 0 -0.23 0 180 0 0.3
+te: bunny yellow 1 0 1 0 0 0 0.3 false
+te: dragon yellow 0 0 5 0 1 0 0.3 false
+te: tree yellow 3 0 2 0 0 0 0.3 false
+e: stall stallTexture -7.2 0 -0.23 0 180 0 0.3 false false
+e: tree tree -10.5 0 -0.13 0 0 0 1 false false
+e: fern fern -4.5 0 -0.13 0 0 0 0.1 true false
+te: grassModel grassTexture -4.5 0 5 0 0 0 0.4 true true
 trash

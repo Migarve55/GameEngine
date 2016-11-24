@@ -18,8 +18,8 @@ import java.io.IOException;
 /**
  * This class loads a HashMap of entities and models from a file
  * The format of the file is:
- * 0  1                 2                3    4    5    6  7  8  9
- * e: rawModel_fileName texture_fileName posX posY posZ rx ry rz scale
+ * 0  1                 2                3    4    5    6  7  8  9     10
+ * e: rawModel_fileName texture_fileName posX posY posZ rx ry rz scale tranparecy
  * @author Miguel Garnacho Velez
  * @version 0.0 Alpha
  */
@@ -50,7 +50,7 @@ public class EntityFileLoader {
 			}
 			System.out.println(line);
 			String[] values = line.split(" ");
-			if(values[0].startsWith("e:") && values.length == 10) { //Model
+			if(values[0].startsWith("e:") && values.length == 12) { //Model
 				RawModel model = OBJLoader.loadObjModel(values[1], loader);
 				ModelTexture texture = new ModelTexture(loader.loadTexture(values[2]));
 				float posX = Float.parseFloat(values[3]);
@@ -60,8 +60,12 @@ public class EntityFileLoader {
 				float ry = Float.parseFloat(values[7]);
 				float rz = Float.parseFloat(values[8]);
 				float scale = Float.parseFloat(values[9]);
+				boolean isTransparent = Boolean.parseBoolean(values[10]);
+				boolean useFL = Boolean.parseBoolean(values[11]);
 				TexturedModel static_model = new TexturedModel(model, texture);
 				Entity entity = new Entity(static_model, new Vector3f(posX,posY,posZ),rx,ry,rz,scale);
+				entity.getModel().getTexture().setHasTransparency(isTransparent);
+				entity.getModel().getTexture().setUseFakeLighting(useFL);
 				entities.add(entity);
 				line = reader.readLine();
 			}
