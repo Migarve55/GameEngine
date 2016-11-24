@@ -1,4 +1,4 @@
-#version 400
+#version 400 core
 
 in vec2 pass_textureCoordinates;
 in vec3 surfaceNormal;
@@ -16,21 +16,21 @@ void main(void){
 
 	vec3 unitNormal = normalize(surfaceNormal);
 	vec3 unitLightVector = normalize(toLightVector);
-	vec3 unitVectorToCamera = normalize(toCameraVector);
-	
-	vec3 lightDirection = -unitLightVector;
-	vec3 lightReflectionVector = reflect(lightDirection,unitNormal);
 	
 	float nDotl = dot(unitNormal,unitLightVector);
-	float lrvDotcv = dot(lightReflectionVector,unitVectorToCamera);
-	
 	float brightness = max(nDotl,0.2);
-	float specularK = max(lrvDotcv,0.0);
-	float dampedK = pow(specularK,shineDamper);
-	vec3 finalSpecular = reflectivity * dampedK * lightColour;
-	
 	vec3 diffuse = brightness * lightColour;
+	
+	vec3 unitVectorToCamera = normalize(toCameraVector);
+	vec3 lightDirection = -unitLightVector;
+	vec3 reflectedLightDirection = reflect(lightDirection,unitNormal);
+	
+	float specularFactor = dot(reflectedLightDirection , unitVectorToCamera);
+	specularFactor = max(specularFactor,0.0);
+	float dampedFactor = pow(specularFactor,shineDamper);
+	vec3 finalSpecular = dampedFactor * reflectivity * lightColour;
+	
 
-	out_Color = vec4(diffuse,1.0) * texture(modelTexture,pass_textureCoordinates) + vec4(finalSpecular,1.0);
+	out_Color =  vec4(diffuse,1.0) * texture(modelTexture,pass_textureCoordinates) + vec4(finalSpecular,1.0);
 
 }

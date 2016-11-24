@@ -4,30 +4,30 @@ public class ModelTexture {
 	
 	private int textureID;
 	
-	private int shineDamper = 1;
-	private int reflectivity = 1;
+	private float shineDamper = 1;
+	private float reflectivity = 0;
 	
-	public ModelTexture(int id) {
-		this.textureID = id;
+	public ModelTexture(int texture){
+		this.textureID = texture;
 	}
 	
-	public int getID() {
+	public int getID(){
 		return textureID;
 	}
 
-	public int getShineDamper() {
+	public float getShineDamper() {
 		return shineDamper;
 	}
 
-	public void setShineDamper(int shineDamper) {
+	public void setShineDamper(float shineDamper) {
 		this.shineDamper = shineDamper;
 	}
 
-	public int getReflectivity() {
+	public float getReflectivity() {
 		return reflectivity;
 	}
 
-	public void setReflectivity(int reflectivity) {
+	public void setReflectivity(float reflectivity) {
 		this.reflectivity = reflectivity;
 	}
 	

@@ -6,7 +6,7 @@ import org.lwjgl.util.vector.Vector3f;
 
 import entities.Entity;
 import models.RawModel;
-import models.TextureModel;
+import models.TexturedModel;
 import textures.ModelTexture;
 
 import java.io.BufferedReader;
@@ -60,7 +60,7 @@ public class EntityFileLoader {
 				float ry = Float.parseFloat(values[7]);
 				float rz = Float.parseFloat(values[8]);
 				float scale = Float.parseFloat(values[9]);
-				TextureModel static_model = new TextureModel(model, texture);
+				TexturedModel static_model = new TexturedModel(model, texture);
 				Entity entity = new Entity(static_model, new Vector3f(posX,posY,posZ),rx,ry,rz,scale);
 				entities.add(entity);
 				line = reader.readLine();

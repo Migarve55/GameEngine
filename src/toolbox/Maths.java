@@ -7,16 +7,8 @@ import entities.Camera;
 
 public class Maths {
 
-	/**
-	 * This method is used to work with transformations
-	 * @param translation
-	 * @param rx The rotation in the x-axis
-	 * @param ry The rotation in the y-axis
-	 * @param rz The rotation in the z-axis
-	 * @param scale
-	 * @return A 4 by 4 matrix that transforms a model 
-	 */
-	public static Matrix4f createTransformationMatrix(Vector3f translation, float rx, float ry, float rz, float scale) {
+	public static Matrix4f createTransformationMatrix(Vector3f translation, float rx, float ry,
+			float rz, float scale) {
 		Matrix4f matrix = new Matrix4f();
 		matrix.setIdentity();
 		Matrix4f.translate(translation, matrix, matrix);
@@ -27,16 +19,16 @@ public class Maths {
 		return matrix;
 	}
 	
-    public static Matrix4f createViewMatrix(Camera camera) {
-        Matrix4f viewMatrix = new Matrix4f();
-        viewMatrix.setIdentity();
-        Matrix4f.rotate((float) Math.toRadians(camera.getPitch()), new Vector3f(1, 0, 0), viewMatrix,
-                viewMatrix);
-        Matrix4f.rotate((float) Math.toRadians(camera.getYaw()), new Vector3f(0, 1, 0), viewMatrix, viewMatrix);
-        Vector3f cameraPos = camera.getPosition();
-        Vector3f negativeCameraPos = new Vector3f(-cameraPos.x,-cameraPos.y,-cameraPos.z);
-        Matrix4f.translate(negativeCameraPos, viewMatrix, viewMatrix);
-        return viewMatrix;
-    }
-	
+	public static Matrix4f createViewMatrix(Camera camera) {
+		Matrix4f viewMatrix = new Matrix4f();
+		viewMatrix.setIdentity();
+		Matrix4f.rotate((float) Math.toRadians(camera.getPitch()), new Vector3f(1, 0, 0), viewMatrix,
+				viewMatrix);
+		Matrix4f.rotate((float) Math.toRadians(camera.getYaw()), new Vector3f(0, 1, 0), viewMatrix, viewMatrix);
+		Vector3f cameraPos = camera.getPosition();
+		Vector3f negativeCameraPos = new Vector3f(-cameraPos.x,-cameraPos.y,-cameraPos.z);
+		Matrix4f.translate(negativeCameraPos, viewMatrix, viewMatrix);
+		return viewMatrix;
+	}
+
 }
