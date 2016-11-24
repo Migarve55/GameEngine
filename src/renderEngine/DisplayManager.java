@@ -1,6 +1,7 @@
 package renderEngine;
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.Sys;
 import org.lwjgl.opengl.ContextAttribs;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
@@ -12,6 +13,9 @@ public class DisplayManager {
 	private static final int WIDTH = 1280; //Width of the screen
 	private static final int HEIGHT = 720; //Height of the screen
 	private static final int FPS_CAP = 60; //Frames per second
+	
+	private static long fps;
+	private static long lastFPS;
 	
 	public static void createDisplay() {
 		
@@ -45,5 +49,27 @@ public class DisplayManager {
 		Display.destroy();
 		
 	}
+	
+	/**
+	 * Get the accurate system time
+	 * @return The system time in milliseconds
+	 */
+	public static long getTime() {
+	    return (Sys.getTime() * 1000) / Sys.getTimerResolution();
+	}
+	
+	/**
+	 * Updates the FPS
+	 */
+	public static void updateFPS() {
+		if (getTime() - lastFPS > 1000) {
+			Display.setTitle("FPS: " + fps);
+			fps = 0;
+			lastFPS += 1000;
+		}
+		fps++;
+	}
+	
+	public static long getFPS() {return fps;}
 
 }

@@ -52,8 +52,8 @@ public class MainGameloop {
 			trees.add(new Entity(tree_static_model,new Vector3f(gen.nextFloat()*10,0,gen.nextFloat()*10),0,0,0,1));
 		}
 		
-		Terrain terrain1 = new Terrain(1,0,loader,new ModelTexture(loader.loadTexture("grass")));
-		Terrain terrain2 = new Terrain(0,-1,loader,new ModelTexture(loader.loadTexture("grass")));
+		Terrain terrain1 = new Terrain(0,0,loader,new ModelTexture(loader.loadTexture("grass")));
+		//Terrain terrain2 = new Terrain(0,0,loader,new ModelTexture(loader.loadTexture("grass")));
 		System.out.println("Terrain created");
 		
 		//Camera and light
@@ -65,6 +65,7 @@ public class MainGameloop {
 		// Main loop
 		MasterRenderer renderer = new MasterRenderer();
 		while(!Display.isCloseRequested()) {
+			DisplayManager.updateFPS();
 			//Game logic
 			entity.increasePosition(0f, 0f, 0f); //Moves the entity
 			entity.increaseRotation(0, 0.4f, 0); //Rotates it
@@ -73,13 +74,15 @@ public class MainGameloop {
 			//renderer.processEntity(entity);
 			//Terrain
 			renderer.processTerrain(terrain1);
-			renderer.processTerrain(terrain2);
+			//renderer.processTerrain(terrain2);
 			for (Entity tree:trees) {
 				renderer.processEntity(tree);
 			}
 			//Render
 			renderer.render(Sun, camera);
 			DisplayManager.updateDisplay();
+			System.out.print("FPS: ");
+			System.out.println(DisplayManager.getFPS());
 		}
 		
 		System.out.println("Game ended");
