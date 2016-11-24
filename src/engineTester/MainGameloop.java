@@ -23,8 +23,6 @@ import textures.ModelTexture;
 public class MainGameLoop {
 
 	public static void main(String[] args) {
-		
-		Random gen = new Random();
 
 		DisplayManager.createDisplay();
 		Loader loader = new Loader();
@@ -55,15 +53,9 @@ public class MainGameLoop {
 		
 		//Terrain
 		
-		ArrayList<Entity> trees = new ArrayList<Entity>();
-		int number_of_trees = 150;
-		
-		RawModel tree_model = OBJLoader.loadObjModel("tree", loader);
-		ModelTexture tree_texture = new ModelTexture(loader.loadTexture("tree"));
-		TexturedModel tree_static_model = new TexturedModel(tree_model, tree_texture);
-		for (int i = 0;i < number_of_trees;i++) {
-			trees.add(new Entity(tree_static_model,new Vector3f(40-gen.nextFloat()*80,0,40-gen.nextFloat()*80),0,0,0,1));
-		}
+		ArrayList<Entity> trees = TerrainGeneration.generateEntitiesInArea(loader,"tree","tree",400,200,1.0f);
+		ArrayList<Entity> ferns = TerrainGeneration.generateEntitiesInArea(loader,"fern","fern",600,200,0.1f);
+		ArrayList<Entity> grasses = TerrainGeneration.generateEntitiesInArea(loader,"grassModel","grassTexture",30,200,0.3f);
 		
 		Terrain terrain1 = new Terrain(0,0,loader,new ModelTexture(loader.loadTexture("grass")));
 		Terrain terrain2 = new Terrain(1,0,loader,new ModelTexture(loader.loadTexture("grass")));
@@ -97,6 +89,12 @@ public class MainGameLoop {
 			renderer.processTerrain(terrain4);
 			for (Entity tree:trees) {
 				renderer.processEntity(tree);
+			}
+			for (Entity fern:ferns) {
+				renderer.processEntity(fern);
+			}
+			for (Entity grass:grasses) {
+				renderer.processEntity(grass);
 			}
 			//Render
 			renderer.render(Sun, camera);
