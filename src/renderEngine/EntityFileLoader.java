@@ -2,6 +2,8 @@ package renderEngine;
 
 import java.util.ArrayList;
 
+import org.lwjgl.util.vector.Vector3f;
+
 import entities.Entity;
 import models.RawModel;
 import models.TextureModel;
@@ -16,9 +18,8 @@ import java.io.IOException;
 /**
  * This class loads a HashMap of entities and models from a file
  * The format of the file is:
- * m: rawModel_fileName texture_fileName
- * e: textured_model pos rx ry rz scale
- * end //Finish parsing
+ * 0  1                 2                3    4    5    6  7  8  9
+ * e: rawModel_fileName texture_fileName posX posY posZ rx ry rz scale
  * @author Miguel Garnacho Velez
  * @version 0.0 Alpha
  */
@@ -40,30 +41,35 @@ public class EntityFileLoader {
 			System.err.println("Could not load entities file!");
 			e.printStackTrace();}
 		BufferedReader reader = new BufferedReader(fr);
-		String line;
+		String line = "";
 		//Parsing
-		while(true) {
-			try {
-				line = reader.readLine();
-			} catch (IOException e) {
-				e.printStackTrace();
-				break;
+		while(line != null) {
+			if(!line.startsWith("e:")) {
+				line = reader.readLine();  //Read the next line
+				continue;
 			}
+			System.out.println(line);
 			String[] values = line.split(" ");
-			if(values[0].startsWith("m:")) { //Model
+			if(values[0].startsWith("e:") && values.length == 10) { //Model
 				RawModel model = OBJLoader.loadObjModel(values[1], loader);
 				ModelTexture texture = new ModelTexture(loader.loadTexture(values[2]));
+				float posX = Float.parseFloat(values[3]);
+				float posY = Float.parseFloat(values[4]);
+				float posZ = Float.parseFloat(values[5]);
+				float rx = Float.parseFloat(values[6]);
+				float ry = Float.parseFloat(values[7]);
+				float rz = Float.parseFloat(values[8]);
+				float scale = Float.parseFloat(values[9]);
 				TextureModel static_model = new TextureModel(model, texture);
+				Entity entity = new Entity(static_model, new Vector3f(posX,posY,posZ),rx,ry,rz,scale);
+				entities.add(entity);
+				line = reader.readLine();
 			}
-			if(values[0].startsWith("e:")) { //Entity
-				
-			}
-			if(values[0].startsWith("end"))break; //Exits file
+
 			
-		}
+			}
 		reader.close();
-		
 		return entities;
-	}
+		}
 	
 }

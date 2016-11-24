@@ -1,5 +1,6 @@
 package engineTester;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,6 +15,7 @@ import models.TextureModel;
 import renderEngine.DisplayManager;
 import renderEngine.Loader;
 import renderEngine.MasterRenderer;
+import renderEngine.EntityFileLoader;
 import renderEngine.OBJLoader;
 import terrain.Terrain;
 import textures.ModelTexture;
@@ -26,6 +28,7 @@ public class MainGameloop {
 
 		DisplayManager.createDisplay();
 		Loader loader = new Loader();
+		MasterRenderer renderer = new MasterRenderer();
 		
 		System.out.println("Loading models");
 		// Model 
@@ -39,6 +42,16 @@ public class MainGameloop {
 		//Entity: model + texture + position
 		Entity entity = new Entity(staticModel, new Vector3f(0,-5,-20),0,0,0,1);
 		System.out.println("Models loaded");
+		
+		//File loader
+		System.out.println("Loading objects from file");
+		ArrayList<Entity> fileEntities = null;
+		try {
+			fileEntities = EntityFileLoader.loadEntitiesFromFile(renderer, loader, "entities");
+		} catch (IOException e1) {
+			System.err.println("Could not load objects");
+			e1.printStackTrace();
+		}
 		
 		//Terrain
 		
@@ -63,15 +76,17 @@ public class MainGameloop {
 		System.out.println("Game started");
 		
 		// Main loop
-		MasterRenderer renderer = new MasterRenderer();
 		while(!Display.isCloseRequested()) {
-			DisplayManager.updateFPS();
+			//DisplayManager.updateFPS();
 			//Game logic
 			entity.increasePosition(0f, 0f, 0f); //Moves the entity
 			entity.increaseRotation(0, 0.4f, 0); //Rotates it
 			camera.move(); //Move the camera
 			//Entities
 			//renderer.processEntity(entity);
+			for (Entity e:fileEntities) {
+				renderer.processEntity(e);
+			}
 			//Terrain
 			renderer.processTerrain(terrain1);
 			//renderer.processTerrain(terrain2);
@@ -81,8 +96,8 @@ public class MainGameloop {
 			//Render
 			renderer.render(Sun, camera);
 			DisplayManager.updateDisplay();
-			System.out.print("FPS: ");
-			System.out.println(DisplayManager.getFPS());
+			//System.out.print("FPS: ");
+			//System.out.println(DisplayManager.getFPS());
 		}
 		
 		System.out.println("Game ended");
