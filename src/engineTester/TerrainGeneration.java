@@ -21,7 +21,7 @@ public class TerrainGeneration {
 	 * @param loader An instance of the loader class
 	 * @param number_of_entities The number of entities you want to generate
 	 * @param area The side of a square area
-	 * @return A list with all the trees entities
+	 * @return A list with all the entities
 	 */
 	public static ArrayList<Entity> generateEntitiesInArea(Loader loader,String model_fileName,String texture_fileName, int number_of_entities, int area, float scale) {
 		ArrayList<Entity> entities = new ArrayList<Entity>();

@@ -2,7 +2,7 @@ package engineTester;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
+//import java.util.Random;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
@@ -53,9 +53,11 @@ public class MainGameLoop {
 		
 		//Terrain
 		
-		ArrayList<Entity> trees = TerrainGeneration.generateEntitiesInArea(loader,"tree","tree",400,200,1.0f);
-		ArrayList<Entity> ferns = TerrainGeneration.generateEntitiesInArea(loader,"fern","fern",600,200,0.1f);
-		ArrayList<Entity> grasses = TerrainGeneration.generateEntitiesInArea(loader,"grassModel","grassTexture",30,200,0.3f);
+		ArrayList<Entity> trees1 = TerrainGeneration.generateEntitiesInArea(loader,"lowPolyTree","lowPolyTree",400,200,0.18f);
+		ArrayList<Entity> trees2 = TerrainGeneration.generateEntitiesInArea(loader,"tree","tree",450,200,1f);
+		ArrayList<Entity> ferns = TerrainGeneration.generateEntitiesInArea(loader,"fern","fern",600,200,0.2f);
+		ArrayList<Entity> grasses = TerrainGeneration.generateEntitiesInArea(loader,"grassModel","grassTexture",300,200,0.4f);
+		ArrayList<Entity> flowers = TerrainGeneration.generateEntitiesInArea(loader,"grassModel","flower",200,200,0.4f);
 		
 		Terrain terrain1 = new Terrain(0,0,loader,new ModelTexture(loader.loadTexture("grass")));
 		Terrain terrain2 = new Terrain(1,0,loader,new ModelTexture(loader.loadTexture("grass")));
@@ -87,15 +89,21 @@ public class MainGameLoop {
 			renderer.processTerrain(terrain2);
 			renderer.processTerrain(terrain3);
 			renderer.processTerrain(terrain4);
-			for (Entity tree:trees) {
-				renderer.processEntity(tree);
-			}
+			for (Entity tree:trees1) {
+				renderer.processEntity(tree);}
+			for (Entity tree:trees2) {
+				renderer.processEntity(tree);}
 			for (Entity fern:ferns) {
-				renderer.processEntity(fern);
-			}
+				fern.getModel().getTexture().setHasTransparency(true);
+				renderer.processEntity(fern);}
 			for (Entity grass:grasses) {
-				renderer.processEntity(grass);
-			}
+				grass.getModel().getTexture().setHasTransparency(true);
+				grass.getModel().getTexture().setUseFakeLighting(true);
+				renderer.processEntity(grass);}
+			for (Entity flower:flowers) {
+				flower.getModel().getTexture().setHasTransparency(true);
+				flower.getModel().getTexture().setUseFakeLighting(true);
+				renderer.processEntity(flower);}
 			//Render
 			renderer.render(Sun, camera);
 			DisplayManager.updateDisplay();
