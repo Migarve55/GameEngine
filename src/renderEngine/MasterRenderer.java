@@ -25,7 +25,8 @@ public class MasterRenderer {
 	private static final float NEAR_PLANE = 0.1f;
 	private static final float FAR_PLANE = 1000;
 	
-	private static final Vector4f BACKGROUND = new Vector4f(0.49f, 89f, 0.98f, 1); //Cyan
+	//private static final Vector4f BACKGROUND = new Vector4f(0.49f, 89f, 0.98f, 1); //Cyan
+	private static final Vector4f BACKGROUND = new Vector4f(0.5f, 0.5f, 0.5f, 1); //Gray
 	
 	private Matrix4f projectionMatrix;
 	
@@ -58,6 +59,7 @@ public class MasterRenderer {
 	public void render(Light sun,Camera camera){
 		prepare();
 		shader.start();
+		shader.loadSkyColour(BACKGROUND.x, BACKGROUND.y, BACKGROUND.z);
 		shader.loadLight(sun);
 		shader.loadViewMatrix(camera);
 		renderer.render(entities);
